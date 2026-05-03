@@ -1,0 +1,115 @@
+<?php
+require_once __DIR__ . '/../config.php';
+requireAdmin();
+$adminInfo = getAdminInfo($pdo);
+?>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin JeuNova</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="/jeunova/css/admin-style.css" rel="stylesheet">
+    <script src="/jeunova/js/admin.js"></script>
+    <style>
+        /* Admin specific overrides */
+        .sidebar {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(16px);
+            border-right: 1px solid var(--c-border);
+        }
+        .sidebar a {
+            color: var(--amalfi);
+        }
+        .sidebar a:hover {
+            background: linear-gradient(90deg, rgba(46,90,167,0.08), transparent);
+            color: var(--citrus);
+        }
+        .navbar-top {
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: blur(12px);
+            border-radius: var(--r-xl);
+            margin-bottom: 1.5rem;
+        }
+        .admin-card {
+            background: var(--c-card);
+            border: 1px solid var(--c-border);
+            border-radius: var(--r-xl);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease;
+        }
+        .admin-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--c-border2);
+        }
+        .table {
+            background: rgba(255,255,255,0.6);
+            border-radius: var(--r-lg);
+            overflow: hidden;
+        }
+        .table th {
+            background: var(--amalfi);
+            color: white;
+            font-weight: 600;
+            border: none;
+        }
+        .btn-sm {
+            transition: all 0.2s var(--ease-spring);
+        }
+        .btn-sm:hover {
+            transform: scale(1.08) translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-3 col-lg-2 px-0 sidebar min-vh-100" id="sidebar">
+            <div class="p-3">
+                <div class="text-center mb-4">
+                    <a href="/jeunova/index.php" class="d-inline-block logo-3d">
+                        <img src="/jeunova/images/logo.jfif" alt="JeuNova" height="45" class="rounded-3 border">
+                    </a>
+                    <a href="/jeunova/index.php" class="d-inline-block ms-2 logo-3d">
+                        <img src="/jeunova/images/esen.jfif" alt="ESEN" height="45" class="rounded-3 border">
+                    </a>
+                </div>
+                <div class="nav flex-column">
+                    <div class="nav-item"><a href="/jeunova/index.php" target="_blank"><i class="bi bi-house-door me-2"></i> Voir le site</a></div>
+                    <div class="nav-item"><a href="/jeunova/admin/index.php"><i class="bi bi-speedometer2 me-2"></i> Dashboard</a></div>
+                    <div class="nav-item"><a href="/jeunova/admin/profil.php"><i class="bi bi-person-circle me-2"></i> Mon profil</a></div>
+                    <hr>
+                    <div class="nav-item"><strong>Utilisateurs</strong></div>
+                    <div class="nav-item"><a href="/jeunova/admin/utilisateurs/admins.php"><i class="bi bi-shield-lock me-2"></i> Admins</a></div>
+                    <div class="nav-item"><a href="/jeunova/admin/utilisateurs/responsables.php"><i class="bi bi-briefcase me-2"></i> Responsables</a></div>
+                    <div class="nav-item"><a href="/jeunova/admin/utilisateurs/participants.php"><i class="bi bi-people me-2"></i> Participants</a></div>
+                    <hr>
+                    <div class="nav-item"><strong>Événements</strong></div>
+                    <div class="nav-item"><a href="/jeunova/admin/evenements/list.php"><i class="bi bi-calendar-event me-2"></i> Liste</a></div>
+                    <div class="nav-item"><a href="/jeunova/admin/evenements/add.php"><i class="bi bi-plus-circle me-2"></i> Ajouter</a></div>
+                    <hr>
+                    <div class="nav-item"><a href="/jeunova/admin/inscriptions/list.php"><i class="bi bi-pencil-square me-2"></i> Inscriptions</a></div>
+                    <div class="nav-item"><a href="/jeunova/admin/inscriptions/by_event.php"><i class="bi bi-bar-chart me-2"></i> Par événement</a></div>
+                    <hr>
+                    <div class="nav-item"><a href="/jeunova/admin/feedback/list.php"><i class="bi bi-star me-2"></i> Feedbacks</a></div>
+                    <div class="nav-item"><a href="/jeunova/admin/messages/list.php"><i class="bi bi-envelope me-2"></i> Messages</a></div>
+                    <div class="nav-item"><a href="/jeunova/admin/stats/dashboard.php"><i class="bi bi-graph-up me-2"></i> Statistiques</a></div>
+                    <hr>
+                    <div class="nav-item"><a href="/jeunova/admin/logout.php"><i class="bi bi-box-arrow-right me-2"></i> Déconnexion</a></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main content -->
+        <div class="col-md-9 col-lg-10 ms-sm-auto px-0">
+            <div class="navbar-top p-3 d-flex justify-content-between align-items-center">
+                <button class="btn btn-outline-secondary d-md-none" id="sidebarToggle"><i class="bi bi-list"></i> Menu</button>
+                <div class="fw-semibold text-dark">
+                    <i class="bi bi-person-circle me-1"></i> <?= htmlspecialchars($adminInfo['prenom'] . ' ' . $adminInfo['nom']) ?>
+                </div>
+            </div>
+            <div class="container-fluid p-3">
