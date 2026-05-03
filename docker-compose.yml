@@ -1,0 +1,67 @@
+services:
+
+  # ── MariaDB (lightweight MySQL alternative) ──────────────────────────────
+  db:
+    image: mariadb:10.11-jammy          # LTS, proven stable, small footprint
+    container_name: jeunova_db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ""           # empty password — matches db.php
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: jeunova
+    volumes:
+      - db_data:/var/lib/mysql                         # persistent data
+      - ./config/jeunova.sql:/docker-entrypoint-initdb.d/jeunova.sql:ro
+    command: >
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_general_ci
+      --innodb-buffer-pool-size=64M
+      --innodb-log-file-size=16M
+      --max-connections=30
+      --table-open-cache=64
+      --tmp-table-size=16M
+      --max-heap-table-size=16M
+      --query-cache-type=0
+      --performance-schema=OFF
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+    networks:
+      - jeunova_net
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  # ── PHP + Apache app ─────────────────────────────────────────────────────
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: jeunova_app
+    restart: unless-stopped
+    ports:
+      - "5000:5000"                     # exposed to nginx on the host
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      # Override db host so PHP connects to the DB container, not localhost
+      DB_HOST: db
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+    networks:
+      - jeunova_net
+
+volumes:
+  db_data:
+    driver: local
+
+networks:
+  jeunova_net:
+    driver: bridge

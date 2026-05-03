@@ -1,6 +1,7 @@
 <?php
-$host = 'localhost';
-$dbname = 'jeunova';
+// DB_HOST is set by docker-compose (value: "db"); falls back to localhost for XAMPP
+$host     = getenv('DB_HOST') ?: 'localhost';
+$dbname   = 'jeunova';
 $username = 'root';
 $password = '';
 
