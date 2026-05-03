@@ -8,7 +8,7 @@ function isAdmin() {
 
 function requireAdmin() {
     if (!isAdmin()) {
-        header('Location: /login.php');
+        header('Location: ../login.php');
         exit;
     }
 }
