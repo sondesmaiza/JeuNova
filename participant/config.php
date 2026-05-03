@@ -8,7 +8,7 @@ function isParticipant() {
 
 function requireParticipant() {
     if (!isParticipant()) {
-        header('Location: ../login.php');
+        header('Location: /login.php');
         exit;
     }
 }

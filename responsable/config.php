@@ -8,7 +8,7 @@ function isResponsable() {
 
 function requireResponsable() {
     if (!isResponsable()) {
-        header('Location: ../login.php');
+        header('Location: /login.php');
         exit;
     }
 }

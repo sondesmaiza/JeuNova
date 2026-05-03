@@ -118,9 +118,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
                 $_SESSION['prenom'] = $user['prenom'];
 
                 switch ($role) {
-                    case 'admin': header('Location: admin/index.php'); break;
-                    case 'responsable': header('Location: responsable/index.php'); break;
-                    case 'participant': header('Location: participant/index.php'); break;
+                    case 'admin': header('Location: /admin/index.php'); break;
+                    case 'responsable': header('Location: /responsable/index.php'); break;
+                    case 'participant': header('Location: /participant/index.php'); break;
                 }
                 exit;
             }
