@@ -2,6 +2,10 @@
 require_once __DIR__ . '/../config.php';
 requireAdmin();
 $adminInfo = getAdminInfo($pdo);
+
+$depth = substr_count($_SERVER['SCRIPT_NAME'], '/') - 1;
+$root_path = str_repeat('../', max(0, $depth));
+if ($root_path === '') $root_path = './';
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -11,8 +15,8 @@ $adminInfo = getAdminInfo($pdo);
     <title>Admin JeuNova</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-    <link href="/css/admin-style.css" rel="stylesheet">
-    <script src="/js/admin.js"></script>
+    <link href="<?= $root_path ?>css/admin-style.css" rel="stylesheet">
+    <script src="<?= $root_path ?>js/admin.js"></script>
     <style>
         /* Admin specific overrides */
         .sidebar {
@@ -71,35 +75,35 @@ $adminInfo = getAdminInfo($pdo);
         <div class="col-md-3 col-lg-2 px-0 sidebar min-vh-100" id="sidebar">
             <div class="p-3">
                 <div class="text-center mb-4">
-                    <a href="/index.php" class="d-inline-block logo-3d">
-                        <img src="/images/logo.jfif" alt="JeuNova" height="45" class="rounded-3 border">
+                    <a href="<?= $root_path ?>index.php" class="d-inline-block logo-3d">
+                        <img src="<?= $root_path ?>images/logo.jfif" alt="JeuNova" height="45" class="rounded-3 border">
                     </a>
-                    <a href="/index.php" class="d-inline-block ms-2 logo-3d">
-                        <img src="/images/esen.jfif" alt="ESEN" height="45" class="rounded-3 border">
+                    <a href="<?= $root_path ?>index.php" class="d-inline-block ms-2 logo-3d">
+                        <img src="<?= $root_path ?>images/esen.jfif" alt="ESEN" height="45" class="rounded-3 border">
                     </a>
                 </div>
                 <div class="nav flex-column">
-                    <div class="nav-item"><a href="/index.php" target="_blank"><i class="bi bi-house-door me-2"></i> Voir le site</a></div>
-                    <div class="nav-item"><a href="/admin/index.php"><i class="bi bi-speedometer2 me-2"></i> Dashboard</a></div>
-                    <div class="nav-item"><a href="/admin/profil.php"><i class="bi bi-person-circle me-2"></i> Mon profil</a></div>
+                    <div class="nav-item"><a href="<?= $root_path ?>index.php" target="_blank"><i class="bi bi-house-door me-2"></i> Voir le site</a></div>
+                    <div class="nav-item"><a href="<?= $root_path ?>admin/index.php"><i class="bi bi-speedometer2 me-2"></i> Dashboard</a></div>
+                    <div class="nav-item"><a href="<?= $root_path ?>admin/profil.php"><i class="bi bi-person-circle me-2"></i> Mon profil</a></div>
                     <hr>
                     <div class="nav-item"><strong>Utilisateurs</strong></div>
-                    <div class="nav-item"><a href="/admin/utilisateurs/admins.php"><i class="bi bi-shield-lock me-2"></i> Admins</a></div>
-                    <div class="nav-item"><a href="/admin/utilisateurs/responsables.php"><i class="bi bi-briefcase me-2"></i> Responsables</a></div>
-                    <div class="nav-item"><a href="/admin/utilisateurs/participants.php"><i class="bi bi-people me-2"></i> Participants</a></div>
+                    <div class="nav-item"><a href="<?= $root_path ?>admin/utilisateurs/admins.php"><i class="bi bi-shield-lock me-2"></i> Admins</a></div>
+                    <div class="nav-item"><a href="<?= $root_path ?>admin/utilisateurs/responsables.php"><i class="bi bi-briefcase me-2"></i> Responsables</a></div>
+                    <div class="nav-item"><a href="<?= $root_path ?>admin/utilisateurs/participants.php"><i class="bi bi-people me-2"></i> Participants</a></div>
                     <hr>
                     <div class="nav-item"><strong>Événements</strong></div>
-                    <div class="nav-item"><a href="/admin/evenements/list.php"><i class="bi bi-calendar-event me-2"></i> Liste</a></div>
-                    <div class="nav-item"><a href="/admin/evenements/add.php"><i class="bi bi-plus-circle me-2"></i> Ajouter</a></div>
+                    <div class="nav-item"><a href="<?= $root_path ?>admin/evenements/list.php"><i class="bi bi-calendar-event me-2"></i> Liste</a></div>
+                    <div class="nav-item"><a href="<?= $root_path ?>admin/evenements/add.php"><i class="bi bi-plus-circle me-2"></i> Ajouter</a></div>
                     <hr>
-                    <div class="nav-item"><a href="/admin/inscriptions/list.php"><i class="bi bi-pencil-square me-2"></i> Inscriptions</a></div>
-                    <div class="nav-item"><a href="/admin/inscriptions/by_event.php"><i class="bi bi-bar-chart me-2"></i> Par événement</a></div>
+                    <div class="nav-item"><a href="<?= $root_path ?>admin/inscriptions/list.php"><i class="bi bi-pencil-square me-2"></i> Inscriptions</a></div>
+                    <div class="nav-item"><a href="<?= $root_path ?>admin/inscriptions/by_event.php"><i class="bi bi-bar-chart me-2"></i> Par événement</a></div>
                     <hr>
-                    <div class="nav-item"><a href="/admin/feedback/list.php"><i class="bi bi-star me-2"></i> Feedbacks</a></div>
-                    <div class="nav-item"><a href="/admin/messages/list.php"><i class="bi bi-envelope me-2"></i> Messages</a></div>
-                    <div class="nav-item"><a href="/admin/stats/dashboard.php"><i class="bi bi-graph-up me-2"></i> Statistiques</a></div>
+                    <div class="nav-item"><a href="<?= $root_path ?>admin/feedback/list.php"><i class="bi bi-star me-2"></i> Feedbacks</a></div>
+                    <div class="nav-item"><a href="<?= $root_path ?>admin/messages/list.php"><i class="bi bi-envelope me-2"></i> Messages</a></div>
+                    <div class="nav-item"><a href="<?= $root_path ?>admin/stats/dashboard.php"><i class="bi bi-graph-up me-2"></i> Statistiques</a></div>
                     <hr>
-                    <div class="nav-item"><a href="/admin/logout.php"><i class="bi bi-box-arrow-right me-2"></i> Déconnexion</a></div>
+                    <div class="nav-item"><a href="<?= $root_path ?>admin/logout.php"><i class="bi bi-box-arrow-right me-2"></i> Déconnexion</a></div>
                 </div>
             </div>
         </div>

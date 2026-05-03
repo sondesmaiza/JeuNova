@@ -2,6 +2,10 @@
 require_once __DIR__ . '/../config.php';
 requireResponsable();
 $info = getResponsableInfo($pdo);
+
+$depth = substr_count($_SERVER['SCRIPT_NAME'], '/') - 1;
+$root_path = str_repeat('../', max(0, $depth));
+if ($root_path === '') $root_path = './';
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -11,8 +15,8 @@ $info = getResponsableInfo($pdo);
     <title>Espace Responsable - JeuNova</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-    <link href="/css/responsable-style.css" rel="stylesheet">
-    <script src="/js/responsable.js"></script>
+    <link href="<?= $root_path ?>css/responsable-style.css" rel="stylesheet">
+    <script src="<?= $root_path ?>js/responsable.js"></script>
     <style>
         .sidebar {
             background: rgba(255,255,255,0.92);
@@ -67,35 +71,35 @@ $info = getResponsableInfo($pdo);
         <div class="col-md-3 col-lg-2 px-0 sidebar min-vh-100" id="sidebar">
             <div class="p-3">
                 <div class="text-center mb-4">
-                    <a href="/index.php" class="logo-3d">
-                        <img src="/images/logo.jfif" alt="JeuNova" height="45" class="rounded-3 border">
+                    <a href="<?= $root_path ?>index.php" class="d-inline-block logo-3d">
+                        <img src="<?= $root_path ?>images/logo.jfif" alt="JeuNova" height="45" class="rounded-3 border">
                     </a>
-                    <a href="/index.php" class="logo-3d ms-2">
-                        <img src="/images/esen.jfif" alt="ESEN" height="45" class="rounded-3 border">
+                    <a href="<?= $root_path ?>index.php" class="d-inline-block ms-2 logo-3d">
+                        <img src="<?= $root_path ?>images/esen.jfif" alt="ESEN" height="45" class="rounded-3 border">
                     </a>
                 </div>
                 <div class="nav flex-column">
-                    <div class="nav-item"><a href="/index.php" target="_blank"><i class="bi bi-house-door me-2"></i> Voir le site</a></div>
-                    <div class="nav-item"><a href="/responsable/index.php"><i class="bi bi-speedometer2 me-2"></i> Dashboard</a></div>
-                    <div class="nav-item"><a href="/responsable/profil.php"><i class="bi bi-person-circle me-2"></i> Mon profil</a></div>
+                    <div class="nav-item"><a href="<?= $root_path ?>index.php" target="_blank"><i class="bi bi-house-door me-2"></i> Voir le site</a></div>
+                    <div class="nav-item"><a href="<?= $root_path ?>responsable/index.php"><i class="bi bi-speedometer2 me-2"></i> Dashboard</a></div>
+                    <div class="nav-item"><a href="<?= $root_path ?>responsable/profil.php"><i class="bi bi-person-circle me-2"></i> Mon profil</a></div>
                     <hr>
                     <div class="nav-item"><strong>Événements</strong></div>
-                    <div class="nav-item"><a href="/responsable/evenements/list.php"><i class="bi bi-calendar-event me-2"></i> Mes événements</a></div>
-                    <div class="nav-item"><a href="/responsable/evenements/add.php"><i class="bi bi-plus-circle me-2"></i> Ajouter</a></div>
+                    <div class="nav-item"><a href="<?= $root_path ?>responsable/evenements/list.php"><i class="bi bi-calendar-event me-2"></i> Liste</a></div>
+                    <div class="nav-item"><a href="<?= $root_path ?>responsable/evenements/add.php"><i class="bi bi-plus-circle me-2"></i> Ajouter</a></div>
                     <hr>
-                    <div class="nav-item"><a href="/responsable/inscriptions/list.php"><i class="bi bi-pencil-square me-2"></i> Inscriptions</a></div>
-                    <div class="nav-item"><a href="/responsable/inscriptions/by_event.php"><i class="bi bi-bar-chart me-2"></i> Par événement</a></div>
+                    <div class="nav-item"><a href="<?= $root_path ?>responsable/inscriptions/list.php"><i class="bi bi-pencil-square me-2"></i> Demandes</a></div>
                     <hr>
-                    <div class="nav-item"><a href="/responsable/participants/list.php"><i class="bi bi-people me-2"></i> Participants</a></div>
-                    <div class="nav-item"><a href="/responsable/feedback/list.php"><i class="bi bi-star me-2"></i> Feedbacks reçus</a></div>
+                    <div class="nav-item"><a href="<?= $root_path ?>responsable/feedback/list.php"><i class="bi bi-star me-2"></i> Feedbacks</a></div>
+                    <div class="nav-item"><a href="<?= $root_path ?>responsable/stats/dashboard.php"><i class="bi bi-graph-up me-2"></i> Statistiques</a></div>
+                    <hr>
+                    <div class="nav-item"><a href="<?= $root_path ?>responsable/logout.php"><i class="bi bi-box-arrow-right me-2"></i> Déconnexion</a></div>
                     <hr>
                     <div class="nav-item"><strong>Statistiques</strong></div>
-                    <div class="nav-item"><a href="/responsable/stats/dashboard.php"><i class="bi bi-graph-up me-2"></i> Vue globale</a></div>
-                    <div class="nav-item"><a href="/responsable/stats/events.php"><i class="bi bi-calendar2-week me-2"></i> Par événement</a></div>
-                    <div class="nav-item"><a href="/responsable/stats/inscriptions.php"><i class="bi bi-bar-chart-steps me-2"></i> Taux d'inscription</a></div>
-                    <div class="nav-item"><a href="/responsable/stats/feedback.php"><i class="bi bi-star-half me-2"></i> Notes moyennes</a></div>
+                    <div class="nav-item"><a href="<?= $root_path ?>responsable/stats/dashboard.php"><i class="bi bi-graph-up me-2"></i> Vue globale</a></div>
+                    <div class="nav-item"><a href="<?= $root_path ?>responsable/stats/events.php"><i class="bi bi-calendar2-week me-2"></i> Par événement</a></div>
+                    <div class="nav-item"><a href="<?= $root_path ?>responsable/stats/inscriptions.php"><i class="bi bi-bar-chart-steps me-2"></i> Taux d'inscription</a></div>
                     <hr>
-                    <div class="nav-item"><a href="/responsable/logout.php"><i class="bi bi-box-arrow-right me-2"></i> Déconnexion</a></div>
+                    <div class="nav-item"><a href="<?= $root_path ?>responsable/logout.php"><i class="bi bi-box-arrow-right me-2"></i> Déconnexion</a></div>
                 </div>
             </div>
         </div>
