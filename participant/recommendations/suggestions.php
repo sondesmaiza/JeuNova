@@ -2,13 +2,13 @@
 require_once '../includes/header.php';
 $id_user = $_SESSION['user_id'];
 
-// Récupérer les centres d'intérêt (mots-clés)
+// Récupération du centre d'intérêt du participant (mots-clés)
 $stmt = $pdo->prepare("SELECT centre_interet FROM Participant WHERE id_user = ?");
 $stmt->execute([$id_user]);
 $centre = $stmt->fetchColumn();
 $keywords = array_filter(array_map('trim', explode(',', $centre ?? '')), fn($k) => strlen($k) > 2);
 
-// Récupérer les catégories des événements déjà suivis (inscriptions confirmées)
+// Récupération des catégories des événements déjà suivis (inscriptions confirmées)
 $stmt = $pdo->prepare("SELECT DISTINCT e.id_categorie 
                        FROM Evenement e 
                        JOIN Inscription i ON e.id_event = i.id_event 
@@ -39,7 +39,7 @@ if (!empty($keywords)) {
     $conditions[] = "(" . implode(' OR ', $kw_conds) . ")";
 }
 
-// Pas de fallback : on n'affiche que s'il y a des conditions
+// Seulement si au moins un critère existe
 if (!empty($conditions)) {
     $sql .= " AND (" . implode(' OR ', $conditions) . ")";
     $sql .= " ORDER BY e.date_debut ASC LIMIT 12";
@@ -47,7 +47,7 @@ if (!empty($conditions)) {
     $stmt->execute($params);
     $suggestions = $stmt->fetchAll();
 } else {
-    $suggestions = []; // aucun critère → pas de recommandations
+    $suggestions = [];
 }
 ?>
 
@@ -55,8 +55,12 @@ if (!empty($conditions)) {
     <h2>Événements recommandés pour vous</h2>
     <?php if (empty($suggestions)): ?>
         <div class="alert alert-info">
-            Aucune recommandation pour l'instant.<br>
-            Complétez votre profil (centres d'intérêt) ou participez à des événements pour affiner les suggestions.
+            <?php if (empty($centre) && empty($categories_interet)): ?>
+                Aucune recommandation pour l'instant.<br>
+                Inscrivez-vous à un événement pour recevoir des suggestions personnalisées.
+            <?php else: ?>
+                Aucun événement ne correspond à vos centres d'intérêt actuellement.
+            <?php endif; ?>
         </div>
     <?php else: ?>
         <div class="row g-4 mt-2">

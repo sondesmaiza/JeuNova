@@ -90,16 +90,16 @@ if (preg_match('#^/jeunova#i', $_SERVER['SCRIPT_NAME'], $matches)) {
                     <hr>
                     <div class="nav-item"><a href="<?= $base_url ?>/responsable/inscriptions/list.php"><i class="bi bi-pencil-square me-2"></i> Demandes</a></div>
                     <hr>
-                    <div class="nav-item"><a href="<?= $base_url ?>/responsable/feedback/list.php"><i class="bi bi-star me-2"></i> Feedbacks</a></div>
-                    <div class="nav-item"><a href="<?= $base_url ?>/responsable/stats/dashboard.php"><i class="bi bi-graph-up me-2"></i> Statistiques</a></div>
-                    <hr>
-                    <div class="nav-item"><a href="<?= $base_url ?>/responsable/logout.php"><i class="bi bi-box-arrow-right me-2"></i> Déconnexion</a></div>
+                    <div class="nav-item"><strong>Feedbacks</strong></div>
+                    <div class="nav-item"><a href="<?= $base_url ?>/responsable/feedback/list.php"><i class="bi bi-star me-2"></i> Feedbacks reçus</a></div>
                     <hr>
                     <div class="nav-item"><strong>Statistiques</strong></div>
                     <div class="nav-item"><a href="<?= $base_url ?>/responsable/stats/dashboard.php"><i class="bi bi-graph-up me-2"></i> Vue globale</a></div>
                     <div class="nav-item"><a href="<?= $base_url ?>/responsable/stats/events.php"><i class="bi bi-calendar2-week me-2"></i> Par événement</a></div>
                     <div class="nav-item"><a href="<?= $base_url ?>/responsable/stats/inscriptions.php"><i class="bi bi-bar-chart-steps me-2"></i> Taux d'inscription</a></div>
+                    <div class="nav-item"><a href="<?= $base_url ?>/responsable/stats/feedback.php"><i class="bi bi-star-half me-2"></i> Notes moyennes</a></div>
                     <hr>
+                    <!-- UN SEUL LIEN DE DÉCONNEXION -->
                     <div class="nav-item"><a href="<?= $base_url ?>/responsable/logout.php"><i class="bi bi-box-arrow-right me-2"></i> Déconnexion</a></div>
                 </div>
             </div>
