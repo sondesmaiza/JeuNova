@@ -3,10 +3,9 @@
 .gitignore
 .gitattributes
 
-# Docker files (not needed inside the image)
+# Docker meta-files (not needed inside the image, but docker/ folder IS needed for COPY)
 Dockerfile
 docker-compose.yml
-docker/
 
 # Editor & OS
 .vscode
