@@ -66,10 +66,10 @@ if (preg_match('#^/jeunova#i', $_SERVER['SCRIPT_NAME'], $matches)) {
     </style>
 </head>
 <body>
-<div class="container-fluid">
-    <div class="row">
+<div class="container-fluid px-0">
+    <div class="d-flex flex-nowrap">
         <!-- Sidebar -->
-        <div class="col-md-3 col-lg-2 px-0 sidebar min-vh-100" id="sidebar">
+        <div class="sidebar min-vh-100 flex-shrink-0" id="sidebar">
             <div class="p-3">
                 <div class="text-center mb-4">
                     <a href="<?= $base_url ?>/index.php" class="d-inline-block logo-3d">
@@ -106,7 +106,7 @@ if (preg_match('#^/jeunova#i', $_SERVER['SCRIPT_NAME'], $matches)) {
         </div>
 
         <!-- Main content -->
-        <div class="col-md-9 col-lg-10 ms-sm-auto px-0">
+        <div class="flex-grow-1 px-0" style="min-width: 0;">
             <div class="navbar-top p-3 d-flex justify-content-between align-items-center">
                 <button class="btn btn-outline-secondary d-md-none" id="sidebarToggle"><i class="bi bi-list"></i> Menu</button>
                 <div class="fw-semibold text-dark">
