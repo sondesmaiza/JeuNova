@@ -12,60 +12,43 @@ if (preg_match('#^/jeunova#i', $_SERVER['SCRIPT_NAME'], $matches)) {
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Admin JeuNova</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <link href="<?= $base_url ?>/css/admin-style.css" rel="stylesheet">
-    <script src="<?= $base_url ?>/js/admin.js"></script>
     <style>
-        /* Admin specific overrides */
-        .sidebar {
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(16px);
-            border-right: 1px solid var(--c-border);
+        /* SURCHARGE RESPONSIVE (force la sidebar mobile) */
+        @media (max-width: 768px) {
+            body {
+                overflow-x: hidden;
+            }
+            .sidebar {
+                position: fixed !important;
+                left: -280px !important;
+                top: 0 !important;
+                bottom: 0 !important;
+                width: 280px !important;
+                z-index: 1050 !important;
+                background: white !important;
+                transition: left 0.3s ease !important;
+                overflow-y: auto !important;
+            }
+            .sidebar.show {
+                left: 0 !important;
+            }
+            .flex-grow-1 {
+                width: 100% !important;
+                margin-left: 0 !important;
+            }
+            #sidebarToggle {
+                display: inline-block !important;
+            }
         }
-        .sidebar a {
-            color: var(--amalfi);
-        }
-        .sidebar a:hover {
-            background: linear-gradient(90deg, rgba(46,90,167,0.08), transparent);
-            color: var(--citrus);
-        }
-        .navbar-top {
-            background: rgba(255,255,255,0.8);
-            backdrop-filter: blur(12px);
-            border-radius: var(--r-xl);
-            margin-bottom: 1.5rem;
-        }
-        .admin-card {
-            background: var(--c-card);
-            border: 1px solid var(--c-border);
-            border-radius: var(--r-xl);
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-            transition: transform 0.3s ease;
-        }
-        .admin-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--c-border2);
-        }
-        .table {
-            background: rgba(255,255,255,0.6);
-            border-radius: var(--r-lg);
-            overflow: hidden;
-        }
-        .table th {
-            background: var(--amalfi);
-            color: white;
-            font-weight: 600;
-            border: none;
-        }
-        .btn-sm {
-            transition: all 0.2s var(--ease-spring);
-        }
-        .btn-sm:hover {
-            transform: scale(1.08) translateY(-2px);
+        @media (min-width: 769px) {
+            #sidebarToggle {
+                display: none !important;
+            }
         }
     </style>
 </head>
@@ -73,7 +56,7 @@ if (preg_match('#^/jeunova#i', $_SERVER['SCRIPT_NAME'], $matches)) {
 <div class="container-fluid px-0">
     <div class="d-flex flex-nowrap">
         <!-- Sidebar -->
-        <div class="sidebar min-vh-100 flex-shrink-0" id="sidebar">
+        <div class="sidebar flex-shrink-0" id="sidebar">
             <div class="p-3">
                 <div class="text-center mb-4">
                     <a href="<?= $base_url ?>/index.php" class="d-inline-block logo-3d">

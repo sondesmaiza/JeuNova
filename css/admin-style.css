@@ -1088,6 +1088,7 @@ form .mb-3 .form-select:focus {
   }
   .table-responsive { border-radius: var(--r-md); }
   .glass-card .card-body { padding: 24px 20px; }
+  
 }
 
 /* ─── OVERLAY mobile (sidebar ouverte) ─────────────────────── */
@@ -1194,3 +1195,25 @@ hr {
 
 /* ─── SCROLL OBSERVER INIT ─────────────────────────────────── */
 /* Activé via JS inline : IntersectionObserver sur .fade-up */
+/* Mobile (<768px) : défilement horizontal */
+@media (max-width: 767px) {
+    .table th, .table td {
+        white-space: nowrap !important;
+        font-size: 0.8rem;
+    }
+}
+
+/* Tablette (768px - 1023px) : comportement normal */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .table th, .table td {
+        white-space: normal;
+        font-size: 0.9rem;
+    }
+}
+
+/* Desktop (≥1024px) : affichage standard */
+@media (min-width: 1024px) {
+    .table th, .table td {
+        white-space: normal;
+    }
+}

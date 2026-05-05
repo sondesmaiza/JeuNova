@@ -12,56 +12,46 @@ if (preg_match('#^/jeunova#i', $_SERVER['SCRIPT_NAME'], $matches)) {
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Espace Responsable - JeuNova</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <link href="<?= $base_url ?>/css/responsable-style.css" rel="stylesheet">
-    <script src="<?= $base_url ?>/js/responsable.js"></script>
     <style>
-        .sidebar {
-            background: rgba(255,255,255,0.92);
-            backdrop-filter: blur(12px);
-            border-right: 1px solid var(--c-border);
+        /* RESPONSIVE SIDEBAR (FORCÉ) */
+        @media (max-width: 768px) {
+            .sidebar {
+                position: fixed;
+                left: -280px;
+                top: 0;
+                bottom: 0;
+                width: 280px;
+                background: white;
+                z-index: 1050;
+                transition: left 0.3s ease;
+                overflow-y: auto;
+                box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+                padding-top: 20px;
+            }
+            .sidebar.show {
+                left: 0;
+            }
+            .navbar-top .btn-outline-secondary {
+                display: inline-block !important;
+                background: #2E5AA7;
+                color: white;
+                border: none;
+                padding: 6px 12px;
+                border-radius: 20px;
+            }
+            .flex-grow-1 {
+                width: 100%;
+            }
         }
-        .sidebar a {
-            color: var(--amalfi);
-            text-decoration: none;
-            transition: all 0.2s;
-        }
-        .sidebar a:hover {
-            color: var(--citrus);
-            transform: translateX(4px);
-        }
-        .navbar-top {
-            background: rgba(255,255,255,0.8);
-            backdrop-filter: blur(10px);
-            border-radius: var(--r-xl);
-            margin-bottom: 1.5rem;
-        }
-        .responsible-card {
-            background: var(--c-card);
-            border: 1px solid var(--c-border);
-            border-radius: var(--r-xl);
-            padding: 1.8rem;
-            margin-bottom: 2rem;
-            box-shadow: var(--shadow-card);
-            transition: transform 0.3s ease;
-        }
-        .responsible-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--c-border2);
-        }
-        .table {
-            background: rgba(255,255,255,0.6);
-            border-radius: var(--r-lg);
-            overflow: hidden;
-        }
-        .table th {
-            background: var(--amalfi);
-            color: white;
-            font-weight: 600;
-            border: none;
+        @media (min-width: 769px) {
+            .navbar-top .btn-outline-secondary {
+                display: none !important;
+            }
         }
     </style>
 </head>
@@ -69,7 +59,7 @@ if (preg_match('#^/jeunova#i', $_SERVER['SCRIPT_NAME'], $matches)) {
 <div class="container-fluid px-0">
     <div class="d-flex flex-nowrap">
         <!-- Sidebar -->
-        <div class="sidebar min-vh-100 flex-shrink-0" id="sidebar">
+        <div class="sidebar flex-shrink-0" id="sidebar">
             <div class="p-3">
                 <div class="text-center mb-4">
                     <a href="<?= $base_url ?>/index.php" class="d-inline-block logo-3d">
@@ -99,7 +89,6 @@ if (preg_match('#^/jeunova#i', $_SERVER['SCRIPT_NAME'], $matches)) {
                     <div class="nav-item"><a href="<?= $base_url ?>/responsable/stats/inscriptions.php"><i class="bi bi-bar-chart-steps me-2"></i> Taux d'inscription</a></div>
                     <div class="nav-item"><a href="<?= $base_url ?>/responsable/stats/feedback.php"><i class="bi bi-star-half me-2"></i> Notes moyennes</a></div>
                     <hr>
-                    <!-- UN SEUL LIEN DE DÉCONNEXION -->
                     <div class="nav-item"><a href="<?= $base_url ?>/responsable/logout.php"><i class="bi bi-box-arrow-right me-2"></i> Déconnexion</a></div>
                 </div>
             </div>
@@ -108,7 +97,7 @@ if (preg_match('#^/jeunova#i', $_SERVER['SCRIPT_NAME'], $matches)) {
         <!-- Main content -->
         <div class="flex-grow-1 px-0" style="min-width: 0;">
             <div class="navbar-top p-3 d-flex justify-content-between align-items-center">
-                <button class="btn btn-outline-secondary d-md-none" id="sidebarToggle"><i class="bi bi-list"></i> Menu</button>
+                <button class="btn btn-outline-secondary" id="sidebarToggle"><i class="bi bi-list"></i> Menu</button>
                 <div class="fw-semibold text-dark">
                     <i class="bi bi-person-circle me-1"></i> <?= htmlspecialchars($info['prenom'] . ' ' . $info['nom']) ?>
                 </div>

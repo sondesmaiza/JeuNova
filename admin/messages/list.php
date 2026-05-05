@@ -4,9 +4,11 @@ $messages = $pdo->query("SELECT * FROM Contact ORDER BY date_envoi DESC")->fetch
 ?>
 <div class="admin-card">
     <h2>Messages reçus</h2>
-    <div class="table-responsive">
-        <table class="table table-hover">
-            <thead><tr><th>Nom</th><th>Email</th><th>Sujet</th><th>Message</th><th>Date</th></tr></thead>
+    <div style="overflow-x: auto; -webkit-overflow-scrolling: touch; width: 100%;">
+        <table class="table table-hover" style="min-width: 650px; width: 100%;">
+            <thead>
+                <tr><th>Nom</th><th>Email</th><th>Sujet</th><th>Message</th><th>Date</th></tr>
+            </thead>
             <tbody>
             <?php foreach($messages as $msg): ?>
             <tr>

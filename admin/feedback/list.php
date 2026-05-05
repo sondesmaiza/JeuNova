@@ -4,9 +4,11 @@ $feedbacks = $pdo->query("SELECT f.*, u.nom, u.prenom, e.titre as event FROM Fee
 ?>
 <div class="admin-card">
     <h2>Feedbacks</h2>
-    <div class="table-responsive">
-        <table class="table table-hover">
-            <thead><tr><th>Participant</th><th>Événement</th><th>Note</th><th>Commentaire</th><th>Validation</th></tr></thead>
+    <div style="overflow-x: auto; -webkit-overflow-scrolling: touch; width: 100%;">
+        <table class="table table-hover" style="min-width: 650px; width: 100%;">
+            <thead>
+                <tr><th>Participant</th><th>Événement</th><th>Note</th><th>Commentaire</th><th>Validation</th></tr>
+            </thead>
             <tbody>
             <?php foreach($feedbacks as $fb): ?>
             <tr>

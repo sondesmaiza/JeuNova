@@ -4,9 +4,11 @@ $inscriptions = $pdo->query("SELECT i.*, u.nom, u.prenom, e.titre as event_titre
 ?>
 <div class="admin-card">
     <h2>Inscriptions</h2>
-    <div class="table-responsive">
-        <table class="table table-hover">
-            <thead><tr><th>Participant</th><th>Événement</th><th>Date</th><th>Statut</th><th>Actions</th></tr></thead>
+    <div style="overflow-x: auto; -webkit-overflow-scrolling: touch; width: 100%;">
+        <table class="table table-hover" style="min-width: 650px; width: 100%;">
+            <thead>
+                <tr><th>Participant</th><th>Événement</th><th>Date inscription</th><th>Statut</th><th>Actions</th><tr>
+            </thead>
             <tbody>
             <?php foreach($inscriptions as $ins): ?>
             <tr>
